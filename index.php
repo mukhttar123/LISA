@@ -49,33 +49,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="flex items-center justify-center h-screen bg-body">
 
     <div class="flex flex-col justify-center items-center">
-        <h1 class="color text-8xl m-2 mulish">LISA</h1>
-        <h3 class="text-white m-4 text-3xl font-mulish tracking-wider">List Inventaris Stok Aset</h3>
-        <button id="loginButton" class="px-8 py-2.5 text-black bg-white rounded-full mt-2 mulish">Login</button>
-        <a href="dashboard.php" id="dashboard" class="px-8 py-2.5 text-black bg-white rounded-full mt-2 mulish">GO NOW</></a>
+        <h1 class="color text-8xl m-2 font-mulish-900">LISA</h1>
+        <h3 class="text-white m-4 text-3xl font-mulish-700 tracking-wider">List Inventaris Stok Aset</h3>
+        <div class="m-3">
+            <a id="loginButton" class="px-10 py-3 text-black bg-white rounded-full mt-2 font-mulish-700">Login</a>
+            <a href="dashboard.php" id="dashboard" class="px-8 py-3 text-black bg-white rounded-full mt-2 font-mulish-700">Go Now</></a>
+        </div>
     </div>
 
     <!-- Popup Background -->
     <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <!-- Popup Form -->
         <div class="glass rounded-lg shadow-lg px-12 py-8 w-full max-w-md transition-all duration-300 transform scale-50 opacity-0 popup-content">
-            <h2 class="text-2xl mulish mb-4 text-center login">Login</h2>
+            <h2 class="text-2xl font-mulish-800 mb-4 text-center login">Login</h2>
 
             <form action="" method="POST" class="mulish">
-                <label class="block mb-2 text-white">Username:</label>
+                <label class="block mb-2 text-white font-mulish-700">Username:</label>
                 <div class="relative flex items-center">
-                    <img src="Person.svg" alt="" class="absolute left-3 w-5 h-5 top-3">
+                    <img src="asset/Person.svg" alt="" class="absolute left-3 w-5 h-5 top-3">
                     <input type="text" class="w-full pl-10 p-2 mb-4 border border-gray-300 rounded" placeholder="username" name="username" required>
                 </div>
 
                 <label class="block mb-2 text-white">Password:</label>
-                <div class="relative flex items-center">
-                    <img src="Lock.svg" alt="" class="absolute left-3 w-4 h-4 top-3">
+                <div class="relative flex items-center font-mulish-700">
+                    <img src="asset/Lock.svg" alt="" class="absolute left-3 w-4 h-4 top-3">
                     <input name="password" type="password" class="w-full pl-10 p-2 mb-4 border border-gray-300 rounded pr-10" placeholder="password" id="password" required>
                     <button type="button" onclick="togglePassword()" class="absolute right-3 top-3 text-gray-500">
                         <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,10 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </button>
                 </div>
 
-                <button type="submit" class="w-full py-2 mt-4 text-white bg-body rounded outline">Login</button>
+                <button type="submit" class="w-full py-2 mt-4 text-white bg-body rounded outline font-mulish-700">Login</button>
             </form>
             <?php if (isset($error)) echo "<p class='text-red-500 text-center'>$error</p>"; ?>
-            <button id="closeButton" class="w-full py-2 mt-4 text-white mulish">Close</button>
+            <button id="closeButton" class="w-full py-2 mt-4 text-white font-mulish-700">Close</button>
         </div>
     </div>
 
@@ -127,44 +130,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             passwordField.type = passwordField.type === "password" ? "text" : "password";
         }
     </script>
-
-    <style>
-        .color {
-            background: linear-gradient(90deg, rgba(255, 194, 58, 1) 0%, rgba(81, 210, 255, 1) 33%, rgba(103, 67, 255, 1) 66%, rgba(255, 96, 181, 1) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .mulish {
-            font-family: "Mulish", sans-serif;
-            font-weight: 700;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.24);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .font-mulish {
-            font-family: "Mulish", sans-serif;
-            font-weight: 400;
-        }
-
-        .bg-body {
-            background-color: rgba(13, 13, 13, 1);
-        }
-
-        .login {
-            background: linear-gradient(90deg, rgba(255, 194, 58, 1) 0%, rgba(81, 210, 255, 1) 33%, rgba(103, 67, 255, 1) 66%, rgba(255, 96, 181, 1) 100%);
-            background-size: 18%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
 </body>
 </html>

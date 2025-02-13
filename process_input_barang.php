@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt_history->execute();
 
     // Redirect atau tampilkan pesan sukses
-    header('Location: admin.php?message=Barang berhasil ditambahkan');
+    header('Location: admin.php?messageCreate=Success');
     exit;
 }
 ?>

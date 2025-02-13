@@ -1,0 +1,115 @@
+.bg-body {
+    background-color: rgba(13, 13, 13, 1);
+}
+
+.font-mulish-100 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 100;
+}
+
+.font-mulish-200 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 200;
+}
+
+.font-mulish-300 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 300;
+}
+
+.font-mulish-400 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 400;
+}
+
+.font-mulish-500 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 500;
+}
+
+.font-mulish-600 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 600;
+}
+
+.font-mulish-700 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 700;
+}
+
+.font-mulish-800 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 800;
+}
+
+.font-mulish-900 {
+    font-family: "Mulish", sans-serif;
+    font-weight: 900;
+}
+
+
+.bg-glass {
+    background: rgba(255, 255, 255, 0.24);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hidden {
+    display: none;
+}
+
+.color {
+    background: linear-gradient(90deg, rgba(255, 194, 58, 1) 0%, rgba(81, 210, 255, 1) 33%, rgba(103, 67, 255, 1) 66%, rgba(255, 96, 181, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bg-body {
+    background-color: rgba(13, 13, 13, 1);
+}
+
+.login {
+    background: linear-gradient(90deg, rgba(255, 194, 58, 1) 0%, rgba(81, 210, 255, 1) 33%, rgba(103, 67, 255, 1) 66%, rgba(255, 96, 181, 1) 100%);
+    background-size: 18%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.lisa {
+    background: linear-gradient(90deg, rgba(255, 194, 58, 1) 0%, rgba(81, 210, 255, 1) 33%, rgba(103, 67, 255, 1) 66%, rgba(255, 96, 181, 1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.bg-nav {
+    background-color: rgb(103, 103, 103)
+}
+
+.bg-history {
+    background: linear-gradient(90deg, rgba(255, 194, 58, 1), rgba(81, 210, 255, 1));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.bg-manage {
+    background: linear-gradient(90deg, rgba(81, 210, 255, 1),rgba(103, 67, 255, 1) );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
