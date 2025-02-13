@@ -22,7 +22,7 @@ include 'config.php';
     <div class="w-full max-w-6xl flex justify-between items-center mb-6">
         <h1 class="text-3xl mulish font-bold">Daftar Barang</h1>
         <div>
-            <a href="history.php" class="px-4 py-2 bg-green-500 text-white rounded-full mulish hover:bg-green-600 transition">History</a>
+            <a href="history2.php" class="px-4 py-2 bg-green-500 text-white rounded-full mulish hover:bg-green-600 transition">History</a>
         </div>
     </div>
 

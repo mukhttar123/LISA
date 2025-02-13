@@ -128,7 +128,7 @@ if (isset($_SESSION['message'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php
+            <?php
                 $query = "SELECT id, nama_barang, stok, satuan, created_at, status FROM barang ORDER BY stok ASC"; // Pastikan untuk mengambil ID
                 $result = $conn->query($query);
 
@@ -136,24 +136,24 @@ if (isset($_SESSION['message'])) {
                     $no = 1;
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr class='odd:bg-gray-700 even:bg-gray-600'>";
-                        echo "<td class='px-4 py-2'>" . $no++ . "</td>";
-                        echo "<td class='px-4 py-2'>" . htmlspecialchars($row['nama_barang']) . "</td>";
-                        echo "<td class='px-4 py-2'>" . htmlspecialchars($row['stok']) . "</td>";
-                        echo "<td class='px-4 py-2'>" . htmlspecialchars($row['satuan']) . "</td>";
-                        echo "<td class='px-4 py-2'>
-            <button onclick='openEditModal(\"" . htmlspecialchars($row['nama_barang']) . "\", \"" . htmlspecialchars($row['stok']) . "\", \"" . htmlspecialchars($row['satuan']) . "\", \"" . htmlspecialchars($row['id']) . "\")' 
-                    class='px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition'>
-                Edit
-            </button>
-            <button onclick='confirmDelete(\"" . htmlspecialchars($row['nama_barang']) . "\")' 
-                    class='px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition'>
-                Delete
-            </button>
-        </td>";
+                        echo "<td class='px-4 py-2 text-center'>" . $no++ . "</td>"; // Memusatkan nomor
+                        echo "<td class='px-4 py-2 text-center'>" . htmlspecialchars($row['nama_barang']) . "</td>"; // Memusatkan nama barang
+                        echo "<td class='px-4 py-2 text-center'>" . htmlspecialchars($row['stok']) . "</td>"; // Memusatkan stok
+                        echo "<td class='px-4 py-2 text-center'>" . htmlspecialchars($row['satuan']) . "</td>"; // Memusatkan satuan
+                        echo "<td class='px-4 py-2 text-center'>
+                            <button onclick='openEditModal(\"" . htmlspecialchars($row['nama_barang']) . "\", \"" . htmlspecialchars($row['stok']) . "\", \"" . htmlspecialchars($row['satuan']) . "\", \"" . htmlspecialchars($row['id']) . "\")' 
+                                    class='px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition'>
+                                Edit
+                            </button>
+                            <button onclick='confirmDelete(\"" . htmlspecialchars($row['nama_barang']) . "\")' 
+                                    class='px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition'>
+                                Delete
+                            </button>
+                        </td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='6' class='text-center py-4'>Tidak ada data barang.</td></tr>";
+                    echo "<tr><td colspan='5' class='text-center py-4'>Tidak ada data barang.</td></tr>"; // Memusatkan pesan tidak ada data
                 }
                 ?>
             </tbody>
