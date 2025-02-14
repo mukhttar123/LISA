@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             exit;
         } else {
-            $error = "Password salah!";
+            $error = "Error, Coba lagi!";
         }
     } else {
         $error = "Username tidak ditemukan!";
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popup Login Form</title>
+    <title>LISA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <button type="submit" class="w-full py-2 mt-4 text-white bg-body rounded outline font-mulish-700">Login</button>
             </form>
-            <?php if (isset($error)) echo "<p class='text-red-500 text-center'>$error</p>"; ?>
+            <?php if (isset($error)) echo "<p class='text-red-500 text-center mt-2'>$error</p>"; ?>
             <button id="closeButton" class="w-full py-2 mt-4 text-white font-mulish-700">Close</button>
         </div>
     </div>

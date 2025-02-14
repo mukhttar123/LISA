@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $satuan = $_POST['satuan'];
 
     // Menambahkan barang ke tabel barang dengan status 'masuk' dan stok diatur ke 0
-    $query_barang = "INSERT INTO barang (nama_barang, stok, satuan, status) VALUES (?, 0, ?, 'masuk')";
+    $query_barang = "INSERT INTO barang (nama_barang, stok, satuan_id, status) VALUES (?, 0, ?, 'masuk')";
     $stmt_barang = $conn->prepare($query_barang);
     $stmt_barang->bind_param("ss", $nama_barang, $satuan);
     $stmt_barang->execute();

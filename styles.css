@@ -95,7 +95,7 @@
 }
 
 .bg-nav {
-    background-color: rgb(103, 103, 103)
+    background-color: #272727d5;
 }
 
 .bg-history {
@@ -112,4 +112,14 @@
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
+}
+.bg-button {
+    background: linear-gradient(90deg,#51D2FF,#6743FF );
+}
+
+.bg-take {
+    background: linear-gradient(120deg,#FFC23A 0%,#51D2FF 33%,#6743FF 66%,#FF60B5 100% );
+}
+.bg-add {
+    background: linear-gradient(100deg,#FFC23A 0%,#51D2FF 33%,#6743FF 66%,#FF60B5 100% );
 }

@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // ambil data barang
-$databarang = "SELECT id AS id_barang, nama_barang as nama, stok as stock, satuan as satuan_barang FROM barang ORDER BY stok ASC"; // Pastikan untuk 
+$databarang = "SELECT barang.id as id_barang, barang.nama_barang as barang, barang.stok as stock, satuan.satuan as satuan, created_at as tanggal FROM `barang` JOIN satuan ON barang.satuan_id = satuan.id ORDER BY barang.stok DESC;"; // Pastikan untuk 
 $result = mysqli_query($conn, $databarang)
 ?>
 
@@ -23,7 +23,7 @@ $result = mysqli_query($conn, $databarang)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - PerBarangan Digital</title>
+    <title>LISA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="styles.css">
@@ -34,7 +34,10 @@ $result = mysqli_query($conn, $databarang)
     <!-- sweelalert js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
-     
+    <!-- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
 </head>
 
 <div class="min-h-screen bg-body text-white flex flex-col items-center p-8">
@@ -57,22 +60,23 @@ $result = mysqli_query($conn, $databarang)
             <h2 class="text-3xl font-mulish-700 font-bold items-center justify-center">Daftar Barang</h2>
             <ul class="flex gap-4 justify-center items-center">
                 <li>
-                    <button class="px-4 py-2 bg-blue-500 text-white rounded-full font-mulish-700 hover:bg-blue-600 transition"
-                        onclick="toggleModal()">Tambah Barang Baru</button>
+                    <button class="px-4 py-2 bg-add text-white rounded-full font-mulish-700 transition"
+                        onclick="toggleModal()">Add</button>
                 </li>
                 <li>
-                    <button class="px-4 py-2 bg-blue-500 text-white rounded-full font-mulish-700 hover:bg-blue-600 transition"
+                    <button class="px-4 py-2 bg-take text-white rounded-full font-mulish-700 transition"
                         onclick="togglePengambilanModal()">Take</button>
                 </li>
             </ul>
         </div>
-        <table id="dataTable" class="table-auto w-full bg-glass rounded-lg overflow-hidden">
-            <thead class="bg-gray-800 text-white">
+        <table id="dataBarang" class="table-auto w-full bg-white rounded-lg overflow-hidden">
+            <thead class="bg-black text-white text-center">
                 <tr class="font-mulish-700">
                     <th class="px-4 py-2">No</th>
                     <th class="px-4 py-2">Nama Barang</th>
                     <th class="px-4 py-2">Stok</th>
                     <th class="px-4 py-2">Satuan</th>
+                    <th class="px-4 py-2">Tanggal</th>
                     <th class="px-4 py-2">Aksi</th> <!-- Kolom untuk tombol Edit -->
                 </tr>
             </thead>
@@ -82,15 +86,18 @@ $result = mysqli_query($conn, $databarang)
                 while ($row = mysqli_fetch_assoc($result)) { ?>
                     <tr class="font-mulish-600 bg-white text-black">
                         <td class="px-4 py-1 text-center"><?php echo $no++; ?></td>
-                        <td class="px-4 py-1 text-center"><?php echo htmlspecialchars($row['nama']); ?></td>
+                        <td class="px-4 py-1 text-center"><?php echo htmlspecialchars($row['barang']); ?></td>
                         <td class="px-4 py-1 text-center"><?php echo htmlspecialchars($row['stock']); ?></td>
-                        <td class="px-4 py-1 text-center"><?php echo htmlspecialchars($row['satuan_barang']); ?></td>
+                        <td class="px-4 py-1 text-center"><?php echo htmlspecialchars($row['satuan']); ?></td>
+                        <td class='py-2 px-4 text-center font-mulish' data-order="<?= date('Y-m-d', strtotime($row['tanggal'])); ?>">
+                            <?= date('d M Y', strtotime($row['tanggal'])); ?>
+                        </td>
                         <td class="px-4 py-1">
                             <div class="flex justify-center items-center gap-2">
-                                <button class="px-4 py-2 bg-yellow-500 text-white rounded-full font-mulish-700 hover:bg-yellow-600 transition"
-                                    onclick="openEditModal('<?php echo htmlspecialchars($row['nama']); ?>', '<?php echo htmlspecialchars($row['stock']); ?>', '<?php echo htmlspecialchars($row['satuan_barang']); ?>', '<?php echo htmlspecialchars($row['id_barang']); ?>')">Edit</button>
-                                <button class="px-4 py-2 bg-red-500 text-white rounded-full font-mulish-700 hover:bg-red-600 transition"
-                                    onclick="confirmDelete('<?php echo htmlspecialchars($row['nama']); ?>')">Hapus</button>
+                                <button class="px-4 py-2 bg-button text-white rounded-full font-mulish-700 transition"
+                                    onclick="openEditModal('<?php echo htmlspecialchars($row['barang']); ?>', '<?php echo htmlspecialchars($row['stock']); ?>', '<?php echo htmlspecialchars($row['satuan']); ?>', '<?php echo htmlspecialchars($row['id_barang']); ?>')">Edit</button>
+                                <button class="px-4 py-2 bg-button text-white rounded-full font-mulish-700 transition"
+                                    onclick="confirmDelete('<?php echo htmlspecialchars($row['barang']); ?>')">Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -112,8 +119,17 @@ $result = mysqli_query($conn, $databarang)
                 </div>
                 <div class="mb-4">
                     <label for="satuan" class="block text-gray-700">Satuan:</label>
-                    <input type="text" id="satuan" name="satuan"
-                        class="w-full border-gray-300 rounded-md focus:ring focus:ring-blue-200 p-2" required>
+                    <!-- <input type="text" id="satuan" name="satuan"
+                        class="w-full border-gray-300 rounded-md focus:ring focus:ring-blue-200 p-2" required> -->
+                    <select name="satuan" id="satuan" class="w-full border-gray-300 rounded-md focus:ring focus:ring-blue-200 p-2">
+                        <option value="">Pilih Satuan</option>
+                        <?php
+                        $query = mysqli_query($conn, "SELECT * FROM satuan");
+                        while ($data = mysqli_fetch_array($query)) {
+                            echo "<option value='" . $data['id'] . "'>" . $data['satuan'] . "</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="flex justify-end">
                     <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-full mr-2"
@@ -142,8 +158,16 @@ $result = mysqli_query($conn, $databarang)
                 </div>
                 <div class="mb-4">
                     <label for="edit_satuan" class="block text-gray-700">Satuan:</label>
-                    <input type="text" id="edit_satuan" name="satuan"
-                        class="w-full border-gray-300 rounded-md focus:ring focus:ring-blue-200 p-2" required>
+                    <!-- <input type="text" id="edit_satuan" name="satuan"
+                        class="w-full border-gray-300 rounded-md focus:ring focus:ring-blue-200 p-2" required> -->
+                    <select name="satuan" id="edit_satuan" class="w-full border-gray-300 rounded-md focus:ring focus:ring-blue-200 p-2">
+                        <?php
+                        $query = mysqli_query($conn, "SELECT * FROM satuan");
+                        while ($data = mysqli_fetch_array($query)) {
+                            echo "<option value='" . $data['id'] . "'>" . $data['satuan'] . "</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="flex justify-end">
                     <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-full mr-2"
@@ -204,8 +228,24 @@ $result = mysqli_query($conn, $databarang)
         </div>
     </div>
 
+    <!-- modal tambah satuan -->
+    <div>
+
+    </div>
+
+
+
 </div>
 
+<!-- cdn script datatables -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/pdfmake.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 <script>
     function toggleModal() {
         const modal = document.getElementById('modal');
@@ -263,21 +303,50 @@ $result = mysqli_query($conn, $databarang)
     const urlParams = new URLSearchParams(window.location.search);
     const messageCreate = urlParams.get("messageCreate")
 
+
+    // sweealert untuk add barang
     if (messageCreate) {
-            if (messageCreate === "Success") {
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: 'Barang Berhasil dibuat.',
-                    icon: 'success',
-                    confirmButtonText: 'Okay'
-                }).then(() => {
-                    // Hapus parameter setelah SweetAlert ditutup
-                    const currentUrl = new URL(window.location);
-                    currentUrl.searchParams.delete("messageCreate");
-                    window.history.replaceState({}, document.title, currentUrl);
-                });
-            }
+        if (messageCreate === "Success") {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'Barang Berhasil dibuat.',
+                icon: 'success',
+                confirmButtonText: 'Okay'
+            }).then(() => {
+                // Hapus parameter setelah SweetAlert ditutup
+                const currentUrl = new URL(window.location);
+                currentUrl.searchParams.delete("messageCreate");
+                window.history.replaceState({}, document.title, currentUrl);
+            });
         }
+    }
+
+
+    // datatables js
+    $(document).ready(function() {
+        $('#dataBarang').DataTable({
+            dom: 'Bfrtip',
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Awal",
+                    last: "Akhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                },
+                zeroRecords: "Data tidak ditemukan",
+                infoEmpty: "Menampilkan 0 data",
+                infoFiltered: "(dari total _MAX_ data)"
+            },
+            responsive: true,
+            columnDefs: [{
+                "className": "dt-center",
+                "targets": "_all"
+            }],
+        });
+    });
 </script>
 
 </body>
